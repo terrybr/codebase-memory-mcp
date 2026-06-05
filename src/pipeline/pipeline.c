@@ -469,7 +469,7 @@ static void run_predump_passes(cbm_pipeline_t *p, cbm_pipeline_ctx_t *ctx) {
     } passes[] = {
         {predump_deco, "decorator_tags", false}, {predump_cfg, "configlink", false},
         {predump_route, "route_match", false},   {predump_sim, "similarity", true},
-        {predump_sem, "semantic_edges", true},    {predump_complexity, "complexity", false},
+        {predump_sem, "semantic_edges", true},   {predump_complexity, "complexity", false},
     };
     enum { PREDUMP_PASS_COUNT = 6 };
     struct timespec t;

@@ -521,7 +521,8 @@ enum { CBM_DESCENDANT_MAX_DEPTH = 6 };
 // pre-order (depth-bounded). The (System)Verilog grammar has FIELD_COUNT 0, so
 // def names live on nested *_identifier wrappers reachable only by node kind.
 // Tree-sitter trees are acyclic, so the bounded recursion always terminates.
-static TSNode find_first_descendant_by_kind(TSNode node, const char *kind, // NOLINT(misc-no-recursion)
+static TSNode find_first_descendant_by_kind(TSNode node,
+                                            const char *kind, // NOLINT(misc-no-recursion)
                                             int max_depth) {
     if (max_depth < 0 || ts_node_is_null(node)) {
         TSNode null_node = {0};
@@ -825,9 +826,9 @@ static TSNode resolve_func_name(TSNode node, CBMLanguage lang) {
          * nested *_identifier wrapper; the function name is the first
          * simple_identifier descendant (params/returns come after the name). */
         if ((lang == CBM_LANG_VERILOG || lang == CBM_LANG_SYSTEMVERILOG) &&
-            (strcmp(kind, "function_declaration") == 0 ||
-             strcmp(kind, "task_declaration") == 0)) {
-            TSNode si = find_first_descendant_by_kind(node, "simple_identifier", CBM_DESCENDANT_MAX_DEPTH);
+            (strcmp(kind, "function_declaration") == 0 || strcmp(kind, "task_declaration") == 0)) {
+            TSNode si =
+                find_first_descendant_by_kind(node, "simple_identifier", CBM_DESCENDANT_MAX_DEPTH);
             if (!ts_node_is_null(si)) {
                 return si;
             }
@@ -2368,7 +2369,8 @@ static void extract_class_def(CBMExtractCtx *ctx, TSNode node, const CBMLangSpec
                    strcmp(kind, "interface_declaration") == 0 ||
                    strcmp(kind, "program_declaration") == 0 ||
                    strcmp(kind, "package_declaration") == 0) {
-            name_node = find_first_descendant_by_kind(node, "simple_identifier", CBM_DESCENDANT_MAX_DEPTH);
+            name_node =
+                find_first_descendant_by_kind(node, "simple_identifier", CBM_DESCENDANT_MAX_DEPTH);
         }
     }
     if (ts_node_is_null(name_node)) {
@@ -4172,10 +4174,9 @@ static bool janet_is_def_head(const char *t) {
     if (!t) {
         return false;
     }
-    static const char *heads[] = {
-        "defn",    "defn-",  "defmacro", "defmacro-",   "varfn",
-        "fn",      "def",    "def-",     "var",         "var-",
-        "defstruct", "deftype", "defprotocol", NULL};
+    static const char *heads[] = {"defn",      "defn-",   "defmacro",    "defmacro-", "varfn",
+                                  "fn",        "def",     "def-",        "var",       "var-",
+                                  "defstruct", "deftype", "defprotocol", NULL};
     for (int i = 0; heads[i]; i++) {
         if (strcmp(t, heads[i]) == 0) {
             return true;
@@ -4269,13 +4270,25 @@ static bool lisp_is_def_head(const char *t) {
     if (!t) {
         return false;
     }
-    static const char *heads[] = {
-        "defn",        "defn-",          "def",          "defmacro",
-        "defmulti",    "defmethod",      "defprotocol",  "defrecord",
-        "deftype",     "definterface",   "defonce", // Clojure
-        "define",      "define-syntax",  "define-values", "define-syntax-rule",
-        "define-struct", "define-record-type", "define/contract", // Scheme/Racket
-        NULL};
+    static const char *heads[] = {"defn",
+                                  "defn-",
+                                  "def",
+                                  "defmacro",
+                                  "defmulti",
+                                  "defmethod",
+                                  "defprotocol",
+                                  "defrecord",
+                                  "deftype",
+                                  "definterface",
+                                  "defonce", // Clojure
+                                  "define",
+                                  "define-syntax",
+                                  "define-values",
+                                  "define-syntax-rule",
+                                  "define-struct",
+                                  "define-record-type",
+                                  "define/contract", // Scheme/Racket
+                                  NULL};
     for (int i = 0; heads[i]; i++) {
         if (strcmp(t, heads[i]) == 0) {
             return true;

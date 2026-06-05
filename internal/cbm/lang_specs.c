@@ -1211,8 +1211,8 @@ static const char *hare_branch_types[] = {"if_statement", "for_statement", "swit
 static const char *hare_var_types[] = {"let_declaration", "const_declaration", NULL};
 static const char *hare_assign_types[] = {"assignment_expression", NULL};
 static const char *hare_module_types[] = {"source_file", NULL};
-static const char *pony_func_types[] = {"method", "constructor", "ffi_method",
-                                        "lambda_expression", NULL};
+static const char *pony_func_types[] = {"method", "constructor", "ffi_method", "lambda_expression",
+                                        NULL};
 static const char *pony_class_types[] = {
     "actor_definition",     "class_definition",     "struct_definition", "trait_definition",
     "interface_definition", "primitive_definition", "type_alias",        NULL};
@@ -1518,8 +1518,8 @@ static const char *smithy_field_types[] = {"shape_member", NULL};
 static const char *smithy_import_types[] = {"use_statement", NULL};
 static const char *smithy_module_types[] = {"source_file", NULL};
 static const char *wit_func_types[] = {"func_item", "resource_method", NULL};
-static const char *wit_class_types[] = {"record_item", "resource_item", "enum_items",
-                                        "variant_items", "flags_items", NULL};
+static const char *wit_class_types[] = {"record_item",   "resource_item", "enum_items",
+                                        "variant_items", "flags_items",   NULL};
 static const char *wit_field_types[] = {"record_field", NULL};
 static const char *wit_import_types[] = {
     "import_item", "toplevel_use_item", "export_item", "import", "include", "include_item", NULL};
@@ -2172,10 +2172,10 @@ static const CBMLangSpec lang_specs[CBM_LANG_COUNT] = {
                        empty_types, NULL, NULL, tree_sitter_sway, NULL},
 
     // CBM_LANG_NASM
-    [CBM_LANG_NASM] = {CBM_LANG_NASM, nasm_func_types, nasm_class_types, empty_types, nasm_module_types,
-                       nasm_call_types, nasm_import_types, empty_types, empty_types, nasm_var_types,
-                       empty_types, empty_types, NULL, empty_types, NULL, NULL, tree_sitter_nasm,
-                       NULL},
+    [CBM_LANG_NASM] = {CBM_LANG_NASM, nasm_func_types, nasm_class_types, empty_types,
+                       nasm_module_types, nasm_call_types, nasm_import_types, empty_types,
+                       empty_types, nasm_var_types, empty_types, empty_types, NULL, empty_types,
+                       NULL, NULL, tree_sitter_nasm, NULL},
 
     // CBM_LANG_ASSEMBLY
     [CBM_LANG_ASSEMBLY] = {CBM_LANG_ASSEMBLY, assembly_func_types, empty_types, empty_types,
@@ -2389,10 +2389,10 @@ static const CBMLangSpec lang_specs[CBM_LANG_COUNT] = {
                         NULL, tree_sitter_smali, NULL},
 
     // CBM_LANG_TABLEGEN
-    [CBM_LANG_TABLEGEN] = {CBM_LANG_TABLEGEN, tablegen_func_types, tablegen_class_types, empty_types,
-                           tablegen_module_types, empty_types, tablegen_import_types, empty_types,
-                           empty_types, empty_types, empty_types, empty_types, NULL, empty_types,
-                           NULL, NULL, tree_sitter_tablegen, NULL},
+    [CBM_LANG_TABLEGEN] = {CBM_LANG_TABLEGEN, tablegen_func_types, tablegen_class_types,
+                           empty_types, tablegen_module_types, empty_types, tablegen_import_types,
+                           empty_types, empty_types, empty_types, empty_types, empty_types, NULL,
+                           empty_types, NULL, NULL, tree_sitter_tablegen, NULL},
 
     // CBM_LANG_ISPC
     [CBM_LANG_ISPC] = {CBM_LANG_ISPC, ispc_func_types, ispc_class_types, empty_types,
@@ -2407,10 +2407,10 @@ static const CBMLangSpec lang_specs[CBM_LANG_COUNT] = {
                         empty_types, NULL, NULL, tree_sitter_cairo, NULL},
 
     // CBM_LANG_MOVE
-    [CBM_LANG_MOVE] = {CBM_LANG_MOVE, move_func_types, empty_types, empty_types,
-                       move_module_types, move_call_types, move_import_types, empty_types,
-                       move_branch_types, move_var_types, move_assign_types, empty_types, NULL,
-                       empty_types, NULL, NULL, tree_sitter_move, NULL},
+    [CBM_LANG_MOVE] = {CBM_LANG_MOVE, move_func_types, empty_types, empty_types, move_module_types,
+                       move_call_types, move_import_types, empty_types, move_branch_types,
+                       move_var_types, move_assign_types, empty_types, NULL, empty_types, NULL,
+                       NULL, tree_sitter_move, NULL},
 
     // CBM_LANG_SQUIRREL
     [CBM_LANG_SQUIRREL] = {CBM_LANG_SQUIRREL, squirrel_func_types, squirrel_class_types,

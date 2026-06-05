@@ -1924,8 +1924,8 @@ static int write_db_after_nodes(write_db_ctx_t *w, uint32_t nodes_root) {
     uint32_t edges_root;
     uint32_t vectors_root;
     uint32_t token_vecs_root;
-    int rc = write_one_table(w, &edges_root, w->edges, w->edge_count, adapt_build_edge,
-                             adapt_edge_id);
+    int rc =
+        write_one_table(w, &edges_root, w->edges, w->edge_count, adapt_build_edge, adapt_edge_id);
     if (rc != 0) {
         (void)fclose(fp);
         return rc;
@@ -2224,7 +2224,8 @@ int cbm_write_db(const char *path, const char *project, const char *root_path,
     if (!w) {
         return CBM_NOT_FOUND;
     }
-    (void)cbm_writer_append_nodes(w, nodes, node_count); /* error recorded in w, handled by finalize */
+    (void)cbm_writer_append_nodes(w, nodes,
+                                  node_count); /* error recorded in w, handled by finalize */
     return cbm_writer_finalize(w, project, root_path, indexed_at, nodes, node_count, edges,
                                edge_count, vectors, vector_count, token_vecs, token_vec_count);
 }

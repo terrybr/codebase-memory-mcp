@@ -293,9 +293,9 @@ static bool name_in_set(const char *name, const char *const *set) {
 // Linear-scan / membership calls: a hit inside a loop is the textbook hidden
 // O(n^2) (cf. Olivo et al., PLDI'15) that syntactic loop-depth alone misses.
 static bool is_linear_scan_name(const char *n) {
-    static const char *const set[] = {"find",    "indexof", "contains", "includes", "search",
-                                      "lookup",  "strstr",  "strchr",   "strrchr",  "memchr",
-                                      "find_if", "findindex", "count",  "index",    NULL};
+    static const char *const set[] = {"find",    "indexof",   "contains", "includes", "search",
+                                      "lookup",  "strstr",    "strchr",   "strrchr",  "memchr",
+                                      "find_if", "findindex", "count",    "index",    NULL};
     return name_in_set(n, set);
 }
 
@@ -303,10 +303,9 @@ static bool is_linear_scan_name(const char *n) {
 // accidental reallocation / string-concat O(n^2). Names are deliberately
 // conservative; meaningless in some languages → simply never matches there.
 static bool is_alloc_name(const char *n) {
-    static const char *const set[] = {"malloc",       "calloc",  "realloc", "strdup",
-                                      "strndup",      "append",  "push_back", "emplace_back",
-                                      "concat",       "strcat",  "strncat",  "push",
-                                      "pushback",     NULL};
+    static const char *const set[] = {"malloc",  "calloc",    "realloc",      "strdup", "strndup",
+                                      "append",  "push_back", "emplace_back", "concat", "strcat",
+                                      "strncat", "push",      "pushback",     NULL};
     return name_in_set(n, set);
 }
 
@@ -356,7 +355,8 @@ static int count_params_from_signature(const char *sig) {
         while (*list == ' ' || *list == '\t') {
             list++;
         }
-        if (strncmp(list, "void", 4) == 0 && (list[4] == ')' || list[4] == ' ' || list[4] == '\0')) {
+        if (strncmp(list, "void", 4) == 0 &&
+            (list[4] == ')' || list[4] == ' ' || list[4] == '\0')) {
             return 0; /* C "(void)" */
         }
     }

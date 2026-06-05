@@ -88,8 +88,9 @@ static void append_complexity_props(cbm_gbuf_node_t *node, int tld, bool recursi
         return;
     }
     memcpy(neu, old, olen - 1); /* copy without trailing '}' */
-    int w = snprintf(neu + (olen - 1), CBM_SZ_64, "%s\"transitive_loop_depth\":%d,\"recursive\":%s}",
-                     empty ? "" : ",", tld, recursive ? "true" : "false");
+    int w =
+        snprintf(neu + (olen - 1), CBM_SZ_64, "%s\"transitive_loop_depth\":%d,\"recursive\":%s}",
+                 empty ? "" : ",", tld, recursive ? "true" : "false");
     if (w < 0) {
         free(neu);
         return;
