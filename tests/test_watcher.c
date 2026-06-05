@@ -183,7 +183,7 @@ TEST(watcher_poll_this_repo) {
     if (!getcwd(cwd, sizeof(cwd))) {
         cbm_watcher_free(w);
         cbm_store_close(store);
-        SKIP("getcwd failed");
+        FAIL("getcwd failed");
     }
 
     cbm_watcher_watch(w, "self", cwd);
@@ -233,7 +233,7 @@ TEST(watcher_detects_git_commit) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_test_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -243,7 +243,7 @@ TEST(watcher_detects_git_commit) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -286,7 +286,7 @@ TEST(watcher_detects_dirty_worktree) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_dirty_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -296,7 +296,7 @@ TEST(watcher_detects_dirty_worktree) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -332,7 +332,7 @@ TEST(watcher_detects_new_file) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_newf_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -342,7 +342,7 @@ TEST(watcher_detects_new_file) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -379,7 +379,7 @@ TEST(watcher_no_change_no_reindex) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_nochg_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -389,7 +389,7 @@ TEST(watcher_no_change_no_reindex) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -423,7 +423,7 @@ TEST(watcher_multiple_projects) {
     char tmpdirB[256];
     snprintf(tmpdirB, sizeof(tmpdirB), "/tmp/cbm_watcher_mB_XXXXXX");
     if (!cbm_mkdtemp(tmpdirA) || !cbm_mkdtemp(tmpdirB))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -432,7 +432,7 @@ TEST(watcher_multiple_projects) {
              "git add a.txt && git commit -q -m 'init'",
              tmpdirA);
     if (system(cmd) != 0) {
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     snprintf(cmd, sizeof(cmd),
@@ -441,7 +441,7 @@ TEST(watcher_multiple_projects) {
              "git add b.txt && git commit -q -m 'init'",
              tmpdirB);
     if (system(cmd) != 0) {
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -487,7 +487,7 @@ TEST(watcher_non_git_skips) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_nongit_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     /* Create a file so it's not empty */
     {
@@ -544,7 +544,7 @@ TEST(watcher_interval_blocks_repoll) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_intv_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -554,7 +554,7 @@ TEST(watcher_interval_blocks_repoll) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -620,7 +620,7 @@ TEST(watcher_git_removed_no_crash) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_rmgit_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -630,7 +630,7 @@ TEST(watcher_git_removed_no_crash) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -667,7 +667,7 @@ TEST(watcher_continued_dirty) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_cont_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -677,7 +677,7 @@ TEST(watcher_continued_dirty) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -738,7 +738,7 @@ TEST(watcher_baseline_dirty_repo) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_bld_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -748,7 +748,7 @@ TEST(watcher_baseline_dirty_repo) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     /* Make dirty BEFORE baseline */
@@ -784,7 +784,7 @@ TEST(watcher_unwatch_prunes_state) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_prune_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -794,7 +794,7 @@ TEST(watcher_unwatch_prunes_state) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -832,7 +832,7 @@ TEST(watcher_watch_after_unwatch) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_rewatch_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -842,7 +842,7 @@ TEST(watcher_watch_after_unwatch) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -895,7 +895,7 @@ TEST(watcher_detects_file_delete) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_del_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -906,7 +906,7 @@ TEST(watcher_detects_file_delete) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -942,7 +942,7 @@ TEST(watcher_detects_subdir_file) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_sub_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -952,7 +952,7 @@ TEST(watcher_detects_subdir_file) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -1014,7 +1014,7 @@ TEST(watcher_full_flow_new_file) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_ffnf_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -1024,7 +1024,7 @@ TEST(watcher_full_flow_new_file) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -1066,7 +1066,7 @@ TEST(watcher_fallback_still_detects) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_fb_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -1076,7 +1076,7 @@ TEST(watcher_fallback_still_detects) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -1128,7 +1128,7 @@ TEST(watcher_poll_only_watched_projects) {
     char tmpdirB[256];
     snprintf(tmpdirB, sizeof(tmpdirB), "/tmp/cbm_watcher_owB_XXXXXX");
     if (!cbm_mkdtemp(tmpdirA) || !cbm_mkdtemp(tmpdirB))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     /* Init both repos */
@@ -1138,7 +1138,7 @@ TEST(watcher_poll_only_watched_projects) {
              "git add a.txt && git commit -q -m 'init'",
              tmpdirA);
     if (system(cmd) != 0) {
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     snprintf(cmd, sizeof(cmd),
@@ -1147,7 +1147,7 @@ TEST(watcher_poll_only_watched_projects) {
              "git add b.txt && git commit -q -m 'init'",
              tmpdirB);
     if (system(cmd) != 0) {
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -1193,7 +1193,7 @@ TEST(watcher_touch_resets_immediate) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_tch_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -1203,7 +1203,7 @@ TEST(watcher_touch_resets_immediate) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -1245,7 +1245,7 @@ TEST(watcher_modify_tracked_file) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_mod_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -1255,7 +1255,7 @@ TEST(watcher_modify_tracked_file) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();
@@ -1455,7 +1455,7 @@ TEST(watcher_poll_non_git_dir) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_ng2_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     /* Create a regular file so directory is not empty */
     {
@@ -1541,7 +1541,7 @@ TEST(watcher_callback_data_passed) {
     char tmpdir[256];
     snprintf(tmpdir, sizeof(tmpdir), "/tmp/cbm_watcher_cbdata_XXXXXX");
     if (!cbm_mkdtemp(tmpdir))
-        SKIP("cbm_mkdtemp failed");
+        FAIL("cbm_mkdtemp failed");
 
     char cmd[512];
     snprintf(cmd, sizeof(cmd),
@@ -1551,7 +1551,7 @@ TEST(watcher_callback_data_passed) {
              tmpdir);
     if (system(cmd) != 0) {
         th_rmtree(tmpdir);
-        SKIP("git not available");
+        FAIL("git not available");
     }
 
     cbm_store_t *store = cbm_store_open_memory();

@@ -15,6 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+      # Tests must pass or fail — no SKIPs except genuinely platform-specific
+      # ones (SKIP_PLATFORM / #ifdef). Fails the lint phase on any plain SKIP().
+      - name: No-skips policy (tests pass or fail)
+        run: bash scripts/check-no-test-skips.sh
+
       - name: Install build deps
         run: sudo apt-get update && sudo apt-get install -y zlib1g-dev cmake
 

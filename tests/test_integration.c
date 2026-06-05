@@ -531,9 +531,11 @@ TEST(integ_store_bfs_traversal) {
 SUITE(integration) {
     /* Set up: create temp project and index it */
     if (integration_setup() != 0) {
-        printf("  %-50s", "integration_setup");
-        printf("SKIP (setup failed)\n");
-        tf_skip_count += 16; /* skip all integration tests */
+        /* A suite that cannot establish its preconditions has FAILED, not
+         * "skipped" — surface it as a single red failure (no-skips policy). */
+        printf("  %sFAIL%s %s:%d: %s\n", tf_red(), tf_reset(), __FILE__, __LINE__,
+               "integration_setup failed");
+        tf_fail_count++;
         integration_teardown();
         return;
     }
