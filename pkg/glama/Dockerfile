@@ -3,7 +3,7 @@
 # codebase-memory-mcp needs NO Docker to run. This image exists only so Glama
 # can build a sandbox, launch the stdio MCP server, and run its introspection
 # checks, which power the directory's score badge. The same image is exercised
-# locally and in CI by packaging/glama/verify.sh to guard against drift.
+# locally and in CI by pkg/glama/verify.sh to guard against drift.
 #
 # We pull the "-portable" release asset, which is fully statically linked
 # (gcc -static) — unlike the standard asset, which dynamically links glibc/
